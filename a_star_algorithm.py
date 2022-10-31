@@ -30,10 +30,10 @@ class Graph:
         open_lst = set([start])
         closed_lst = set([])
  
-        # poo has present distances from start to all other nodes
+        # dist has present distances from start to all other nodes
         # the default value is +infinity
-        poo = {}
-        poo[start] = 0
+        dist = {}
+        dist[start] = 0
  
         # par contains an adjac mapping of all nodes
         par = {}
@@ -44,7 +44,7 @@ class Graph:
  
             # it will find a node with the lowest value of f() -
             for v in open_lst:
-                if n == None or poo[v] + self.h(v) < poo[n] + self.h(n):
+                if n == None or dist[v] + self.h(v) < dist[n] + self.h(n):
                     n = v;
  
             if n == None:
@@ -74,14 +74,14 @@ class Graph:
                 if m not in open_lst and m not in closed_lst:
                     open_lst.add(m)
                     par[m] = n
-                    poo[m] = poo[n] + weight
+                    dist[m] = dist[n] + weight
  
                 # otherwise, check if it's quicker to first visit n, then m
-                # and if it is, update par data and poo data
+                # and if it is, update par data and dist data
                 # and if the node was in the closed_lst, move it to open_lst
                 else:
-                    if poo[m] > poo[n] + weight:
-                        poo[m] = poo[n] + weight
+                    if dist[m] > dist[n] + weight:
+                        dist[m] = dist[n] + weight
                         par[m] = n
  
                         if m in closed_lst:
@@ -96,10 +96,7 @@ class Graph:
         print('Path does not exist!')
         return None
 
-
-
-
-
+# Define graph & run code
 adjac_lis = {
     'A': [('B', 18), ('C', 1), ('D', 22)],
     'B': [('D', 33)],
